@@ -4,15 +4,21 @@ const connectDB = require('./db/db');
 const app = express();
 const path = require("path");
 const authRoutes = require('./controllers/authController');
-connectDB();
+//connectDB();
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.get("/",(req, res)=>{
     res.sendFile(path.join(__dirname, 'views', "index.html"))
 });
 app.get("/login",(req, res)=>{
-    res.send("<h1>login</h1>")
-})
+    res.sendFile(path.join(__dirname, 'views', "index.html"))
+});
+app.get("/registration",(req, res)=>{
+    res.sendFile(path.join(__dirname, 'views', "registration.html"))
+});
+app.get("/about",(req, res)=>{
+    res.sendFile(path.join(__dirname, 'views', "index.html"))
+});
 
 app.use("/users",authRoutes);
 
