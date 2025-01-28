@@ -4,7 +4,7 @@ const connectDB = require('./db/db');
 const app = express();
 const path = require("path");
 const authRoutes = require('./controllers/authController');
-//connectDB();
+connectDB();
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.get("/",(req, res)=>{

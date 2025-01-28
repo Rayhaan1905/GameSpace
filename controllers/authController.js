@@ -19,10 +19,12 @@ const register = async (req, res) => {
                     passwordHash: hash
                 });
                 user.save();
+                console.log(user);
+                res.send({code :69, message:'User created'});
             })
-            .catch(err=>console.error(err));
-
-            res.send({code :69, message:'User created'});
+            .catch(err=>{
+                res.send({code:400, message:"couldn't hash", error:String(err)});
+            });
         }
     }catch(err)
     {console.error(err);

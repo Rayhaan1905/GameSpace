@@ -4,158 +4,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome to Game Space</title>
     <style>
-        /* Basic Reset */
-        body,
-        h1,
-        p,
-        ul,
-        li,
-        form {
+        /* General reset */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Set general body styles */
+        /* Body & Background */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
-            line-height: 1.6;
-            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: #1d1f27;
+            color: #f1f1f1;
         }
 
-        /* Navigation Bar Styling */
-        .navbar {
-            background-color: #333;
-            padding: 10px;
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background-color: #121416;
         }
 
-        .navbar ul {
+        header .logo h1 {
+            color: #f1f1f1;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        nav ul {
             list-style-type: none;
-            padding: 0;
-            margin: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #f1f1f1;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #00aaff;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('https://via.placeholder.com/1500x800') no-repeat center center;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            padding: 15px 30px;
+            background-color: #00aaff;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 5px;
+        }
+
+        .cta-button:hover {
+            background-color: #0077cc;
+        }
+
+        /* About Section */
+        .about {
+            padding: 60px 20px;
+            background-color: #1e2128;
             text-align: center;
         }
 
-        .navbar ul li {
-            display: inline;
-            margin-right: 20px;
+        .about h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
         }
 
-        .navbar ul li a {
-            color: white;
-            text-decoration: none;
-            padding: 14px 20px;
-            font-weight: bold;
+        .about p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .navbar ul li a:hover {
-            background-color: #575757;
-            border-radius: 5px;
+        /* Games Section */
+        .games {
+            padding: 60px 20px;
+            background-color: #14161d;
+            text-align: center;
         }
 
-        /* Content Area Styling */
-        .content {
-            background-color: white;
+        .games h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+        }
+
+        .game-cards {
+            display: flex;
+            justify-content: space-around;
+            gap: 30px;
+        }
+
+        .game-card {
+            background-color: #222831;
             padding: 20px;
-            margin-top: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            border-radius: 10px;
+            text-align: center;
         }
 
-        h1 {
-            color: #333;
+        .game-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
         }
 
-        p {
-            color: #555;
+        .game-card p {
+            font-size: 1em;
+            margin-bottom: 20px;
         }
 
-        /* Form Inputs Styling */
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
+        .game-card a {
+            color: #00aaff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .game-card a:hover {
+            color: #0077cc;
+        }
+
+        /* Community Section */
+        .community {
+            padding: 60px 20px;
+            background-color: #121416;
+            text-align: center;
+        }
+
+        .community h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .community p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .community a {
+            padding: 12px 25px;
+            background-color: #00aaff;
+            color: #fff;
+            font-size: 1.2em;
+            text-decoration: none;
             border-radius: 5px;
         }
 
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
+        .community a:hover {
+            background-color: #0077cc;
         }
 
-        button:hover {
-            background-color: #555;
+        /* Footer */
+        footer {
+            background-color: #1e2128;
+            text-align: center;
+            padding: 15px;
+        }
+
+        footer .footer-content p {
+            font-size: 1em;
+            color: #f1f1f1;
         }
     </style>
 </head>
 
 <body>
+    <header>
+        <div class="logo">
+            <h1>Game Space</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#games">Games</a></li>
+                <li><a href="/registration">Registration</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/registration">Register</a></li>
-        </ul>
-    </nav>
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Welcome to Game Space!</h2>
+            <p>Your next adventure awaits! Dive into the world of gaming with us. Explore new games, join the community, and level up your experience.</p>
+            <a href="#games" class="cta-button">Start Playing</a>
+        </div>
+    </section>
 
-    <!-- Home Page Content -->
-    <div class="content" id="home">
-        <h1>Welcome to Our Website!</h1>
-        <p>This is the homepage of the website. Here you can explore different sections like About Us, Contact Us,
-            Login, and Register.</p>
-    </div>
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>At Gamer's Realm, we bring the best gaming experiences to your fingertips. Whether you're into strategy, action, or adventure, we have something for everyone. Our mission is to unite gamers from all around the world and create a space for all to enjoy and explore.</p>
+    </section>
 
-    <!-- About Page Content -->
-    <div class="content" id="about">
-        <h1>About Us</h1>
-        <p>We are a passionate team dedicated to providing high-quality services to our clients. Our mission is to make
-            a positive impact through our innovative solutions.</p>
-    </div>
+    <section id="games" class="games">
+        <h2>Our Featured Games</h2>
+        <div class="game-cards">
+            <div class="game-card">
+                <h3>Epic Battle Royale</h3>
+                <p>Join the fight in this adrenaline-pumping battle royale game where only the strongest survive.</p>
+                <a href="#">Play Now</a>
+            </div>
+            <div class="game-card">
+                <h3>Racing Legends</h3>
+                <p>Race through the streets in the most thrilling racing experience. Can you become the legend?</p>
+                <a href="#">Play Now</a>
+            </div>
+            <div class="game-card">
+                <h3>Space Odyssey</h3>
+                <p>Embark on a thrilling space adventure. Explore galaxies, conquer alien worlds, and become a legend in the stars!</p>
+                <a href="#">Play Now</a>
+            </div>
+        </div>
+    </section>
 
-    <!-- Contact Us Page Content -->
-    <div class="content" id="contact">
-        <h1>Contact Us</h1>
-        <p>If you have any questions or need assistance, feel free to reach out to us. We will get back to you as soon
-            as possible.</p>
-        <p>Email: support@website.com</p>
-        <p>Phone: (123) 456-7890</p>
-    </div>
-
-    <!-- Login Page Content -->
-    <div class="content" id="login">
-        <h1>Login</h1>
-        <form action="#" method="POST">
-            <input type="email" name="email" placeholder="Enter your email" required>
-            <input type="password" name="password" placeholder="Enter your password" required>
-            <button type="submit">Login</button>
-        </form>
-    </div>
-
-    <!-- Register Page Content -->
-    <div class="content" id="register">
-        <h1>Register</h1>
-        <form action="/users/register" method="POST">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password1" placeholder="password" required>
-            <input type="password" name="password2" placeholder="Password" required>
-            <button type="submit">Register</button>
-        </form>
-    </div>
-
+ 
+   
 </body>
 
 </html>
