@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 
 const register = async (req, res) => {
-    try{
         const {username, password1,password2}= req.body;
         if(password1 !== password2)
         {
@@ -12,24 +11,13 @@ const register = async (req, res) => {
             res.send({code :400, message:'The passwords you entered do not match'});
         }
         else{
-            await bcrypt.hash(password1,10)
-            .then(hash => {
-                const user = new User({
-                    username: username,
-                    passwordHash: hash
-                });
-                user.save();
-                console.log(user);
-                res.send({code :69, message:'User created'});
-            })
-            .catch(err=>{
-                res.send({code:400, message:"couldn't hash", error:String(err)});
+            const pswd = await bcrypt.hash(password1,10);
+            const user = new User({
+                username: username,
+                passwordHash: pswd
             });
+            user.save();
         }
-    }catch(err)
-    {console.error(err);
-    }
-    
 }
 
 
