@@ -1,105 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gaming Login</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background: url('https://www.example.com/your-background-image.jpg') no-repeat center center fixed;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login | Gaming Website</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .login-container {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-            width: 350px;
-            text-align: center;
-        }
+    body {
+      background: linear-gradient(135deg, #ff4e50, #81784d);
+      font-family: 'Arial', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      overflow: hidden;
+    }
 
-        h2 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
 
-        .input-field {
-            width: 80%;
-            padding: 12px;
-            margin: 12px 0;
-            border: 2px solid #fff;
-            border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            font-size: 16px;
-        }
+    .login-box {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+    }
 
-        .input-field::placeholder {
-            color: #aaa;
-        }
+    h2 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
 
-        .login-btn {
-            width: 50%;
-            padding: 14px;
-            background-color: #ffcc00;
-            border: none;
-            border-radius: 8px;
-            color: #333;
-            font-size: 18px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
+    .input-group {
+      margin-bottom: 20px;
+    }
 
-        .login-btn:hover {
-            background-color: #e6b800;
-        }
+    label {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
 
-        .forgot-password {
-            font-size: 14px;
-            margin-top: 15px;
-        }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      background: #fff;
+      color: #333;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
 
-        .forgot-password a {
-            color: #ffcc00;
-            text-decoration: none;
-        }
+    input:focus {
+      border-color: #f9d423;
+      outline: none;
+      box-shadow: 0 0 8px rgba(249, 212, 35, 0.8);
+    }
 
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #f9d423;
+      color: #333;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
 
-        .logo {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
-    </style>
+    button:hover {
+      background: #ff4e50;
+    }
+
+    #errorMessage {
+      color: #ff4e50;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    a {
+      color: #f9d423;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      color: #ff4e50;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .login-box {
+        padding: 30px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      input,
+      button {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-
-    <div class="login-container">
-        <img src="https://www.example.com/your-logo.png" alt="Game Logo" class="logo">
-        <h2>Welcome to GameSpace</h2>
-        <form action="#" method="post">
-            <input type="text" class="input-field" placeholder="Username" name="username" required>
-            <input type="password" class="input-field" placeholder="Password" name="password" required>
-            <button type="submit" class="login-btn">Login</button>
-        </form>
-        <div class="forgot-password">
-            <a href="#">Forgot Password?</a>
+  <div class="login-container">
+    <div class="login-box">
+      <h2>Login </h2>
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required>
         </div>
+        <div class="input-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+        <p id="errorMessage"></p>
+        <p>Don't have an account? <a href="#">Sign up</a></p>
+      </form>
     </div>
+  </div>
 
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      
+      let username = document.getElementById("username").value;
+      let password = document.getElementById("password").value;
+      let errorMessage = document.getElementById("errorMessage");
+
+      if (username === "" || password === "") {
+        errorMessage.textContent = "Both fields are required!";
+        return;
+      }
+
+      // Simulate login validation (for example purposes)
+      if (username === "player1" && password === "game123") {
+        window.location.href = "/dashboard"; // Redirect to a dashboard or game page
+      } else {
+        errorMessage.textContent = "Invalid username or password!";
+      }
+    });
+  </script>
 </body>
 </html>

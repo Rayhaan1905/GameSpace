@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #ff4e50, #f9d423);
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    overflow: hidden;
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .login-box {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: #fff;
+    color: #333;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  input:focus {
+    border-color: #f9d423;
+    outline: none;
+    box-shadow: 0 0 8px rgba(249, 212, 35, 0.8);
+  }
+  
+  button {
+    width: 100%;
+    padding: 12px;
+    background: #f9d423;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background: #ff4e50;
+  }
+  
+  #errorMessage {
+    color: #ff4e50;
+    text-align: center;
+    font-size: 1rem;
+  }
+  
+  p {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  a {
+    color: #f9d423;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  a:hover {
+    color: #ff4e50;
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 600px) {
+    .login-box {
+      padding: 30px;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  
+    input,
+    button {
+      font-size: 1rem;
+    }
+  }
+  
