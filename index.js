@@ -9,6 +9,7 @@ const app = express();
 connectDB();
 
 app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -28,6 +29,6 @@ app.get("/about",(req, res)=>{
     res.sendFile(path.join(__dirname, 'views', "index.html"))
 });
 
-app.use("/users",authRoutes);
+app.use("/backend",authRoutes);
 
 app.listen(()=>console.log("Server started"));
