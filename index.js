@@ -24,6 +24,9 @@ app.get("/login",(req, res)=>{
 app.get("/registration",(req, res)=>{
     res.sendFile(path.join(__dirname, 'views', "registration.html"))
 });
+app.get("/about",(req, res)=>{
+    res.sendFile(path.join(__dirname, 'views', "about.html"))
+});
 
 app.get("/about",(req, res)=>{
     res.sendFile(path.join(__dirname, 'views', "index.html"))
@@ -31,4 +34,4 @@ app.get("/about",(req, res)=>{
 
 app.use("/backend",authRoutes);
 
-app.listen(()=>console.log("Server started"));
+app.listen(3000, ()=>console.log("Server started"));
