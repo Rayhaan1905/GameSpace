@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Welcome to Game Space</title>
+    <title>Game Space</title>
     <style>
         /* General reset */
         * {
@@ -17,17 +17,56 @@
         /* Body & Background */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #4311e5;
             color: #f1f1f1;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        /* Overlay for better readability */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+            z-index: 0;
         }
 
         /* Header */
         header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 40px;
-            background-color: #121416;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent header */
+            z-index: 1; /* Keep header on top */
         }
 
         header .logo {
@@ -84,58 +123,66 @@
 
         /* Hero Section */
         .hero {
-            background: url('https://via.placeholder.com/1500x800') no-repeat center center;
-            background-size: cover;
-            color: #fff;
+            position: relative;
+            z-index: 1;
             text-align: center;
-            padding: 100px 20px;
+            padding: 150px 70px;
+            margin-top: 100px; /* Add space for header */
         }
 
         .hero h2 {
-            font-size: 3em;
-            margin-bottom: 20px;
+            font-size: 4.5em;
+            margin-bottom: 50px;
         }
 
-        .hero p {
+        .hero p {   
             font-size: 1.2em;
             margin-bottom: 30px;
         }
 
         .cta-button {
-            padding: 15px 30px;
+            padding: 10px 30px;
             background-color: #00aaff;
             color: #fff;
             text-decoration: none;
-            font-size: 1.2em;
-            border-radius: 5px;
+            font-size: 1em;
+            border-radius: 10px;
+            position: relative;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .cta-button::after {
+            content: '→'; /* Right arrow */
+            font-size: 1.5em;
+            position: absolute;
+            right: 0px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
         }
 
         .cta-button:hover {
             background-color: #0077cc;
+            transform: scale(1.1);
+        }
+
+        .cta-button:hover::after {
+            transform: translateX(-10px) translateY(-50%); /* Move arrow to the left */
+        }
+
+        .cta-button:active {
+            transform: scale(0.9);
         }
 
         /* Games Section */
         .games {
             position: relative;
+            z-index: 1;
             text-align: center;
-            color: #fff;
             padding: 60px 20px;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-                url('public\images\dj ll.jpg') no-repeat center center;
-            background-size: cover;
-            background-attachment: fixed;
-        }
-
-        .games .dynamic-banner {
-            position: absolute;
-            top: 50;
-            left: 0;
-            width: 100%;
-            height: 80%;
-            background: linear-gradient(270deg, #f70404, #8367de, #42e695);
-            background-size: 600% 600%;
-            animation: gradientAnimation 10s ease infinite;
-            z-index: -1;
+            margin-top: 200px; /* Add margin-top to push it below the hero section */
+            background-color: #121212;
         }
 
         .games h2 {
@@ -199,66 +246,62 @@
             0% {
                 transform: translateX(0);
             }
-
             100% {
                 transform: translateX(-100%);
-            }
-        }
-
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
             }
         }
     </style>
 </head>
 
 <body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="public\videos\videoplayback.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Header -->
     <header>
         <div class="logo">
-            <!-- Add your logo image here -->
-            <img src="public\images\image1_0.jpg" alt="Game Space Logo">
+            <img src="/images/image1_0.jpg" alt="Game Space Logo">
             <h1>Game Space</h1>
         </div>
         <nav>
             <ul>
-                <li><a href="#about">About</a></li>
+                <li><a href="/about">About</a></li>
                 <li><a href="#games">Games</a></li>
-                <li><a href="/registration">Registration</a></li>
+                <li><a href="/registration">Sign Up</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="/login">Login</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h2>Welcome to Game Space!</h2>
-            <p>Your next adventure awaits! Dive into the world of gaming with us. Explore new games, join the community, and level up your experience.</p>
-            <a href="/login" class="cta-button">Start Playing</a>
+            <h2>Game Space</h2>
+            <p>Welcome to the world of exciting games!</p>
         </div>
+        <a href="/login" class="cta-button">Start Playing</a>
     </section>
 
+    <!-- Featured Games Section -->
     <section id="games" class="games">
-        <div class="dynamic-banner"></div>
         <h2>Our Featured Games</h2>
         <div class="game-cards">
             <div class="game-cards-inner">
                 <div class="game-card">
-                    <img src="public/images/2048.jpg" alt="">
+                    <img src="/images/2048.jpg" alt="2048">
                     <h3>2048</h3>
                     <a href="/login">Play Now</a>
                 </div>
                 <div class="game-card">
-                    <img src="public/images/2048.avif" alt="Racing Legends">
+                    <img src="/images/2048.avif" alt="Racing Legends">
                     <h3>Racing Legends</h3>
                     <a href="/login">Play Now</a>
                 </div>
@@ -275,27 +318,6 @@
                 <div class="game-card">
                     <img src="https://via.placeholder.com/250x150" alt="Zombie Survival">
                     <h3>Zombie Survival</h3>
-                    <a href="/login">Play Now</a>
-                </div>
-                <!-- Duplicate for seamless scroll -->
-                <div class="game-card">
-                    <img src="public/images/2048.jpg" alt="">
-                    <h3>2048</h3>
-                    <a href="/login">Play Now</a>
-                </div>
-                <div class="game-card">
-                    <img src="public/images/2048.avif" alt="Racing Legends">
-                    <h3>Racing Legends</h3>
-                    <a href="/login">Play Now</a>
-                </div>
-                <div class="game-card">
-                    <img src="https://via.placeholder.com/250x150" alt="Space Odyssey">
-                    <h3>Space Odyssey</h3>
-                    <a href="/login">Play Now</a>
-                </div>
-                <div class="game-card">
-                    <img src="https://via.placeholder.com/250x150" alt="Fantasy Quest">
-                    <h3>Fantasy Quest</h3>
                     <a href="/login">Play Now</a>
                 </div>
             </div>
