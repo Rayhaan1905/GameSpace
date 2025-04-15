@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Memory Match</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="animate__animated animate__bounce">Memory Match</h1>
+        <div class="stats">
+            <p>Moves: <span id="moves">0</span></p>
+            <p>Time: <span id="time">0</span>s</p>
+            <p>Score: <span id="score">0</span></p>
+        </div>
+        <div class="game-board" id="game-board"></div>
+        <div class="controls">
+            <button id="reset-btn">New Game</button>
+            <select id="difficulty">
+                <option value="easy">Easy (4x4)</option>
+                <option value="medium">Medium (6x4)</option>
+                <option value="hard">Hard (6x6)</option>
+            </select>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

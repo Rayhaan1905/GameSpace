@@ -24,12 +24,21 @@ app.get("/login",(req, res)=>{
 app.get("/registration",(req, res)=>{
     res.sendFile(path.join(__dirname, 'views', "registration.html"))
 });
+
+app.get("/contact",(req, res)=>{
+    res.sendFile(path.join(__dirname, 'views', "contact.html"))
+});
+
 app.get("/about",(req, res)=>{
     res.sendFile(path.join(__dirname, 'views', "about.html"))
 });
 
 app.get("/home",(req, res)=>{
     res.sendFile(path.join(__dirname, 'views', "home.html"))
+});
+
+app.get("/privacy",(req, res)=>{
+    res.sendFile(path.join(__dirname, 'views', "privacy.html"))
 });
 
 app.use("/backend",authRoutes);

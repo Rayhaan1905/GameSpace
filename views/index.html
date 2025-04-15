@@ -271,7 +271,7 @@
             <ul>
                 <li><a href="/about">About</a></li>
                 <li><a href="/registration">Sign Up</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="/contact">Contact</a></li>
                 <li><a href="/login">Login</a></li>
             </ul>
         </nav>
@@ -373,6 +373,59 @@
 
         observer.observe(document.querySelector('.stats'));
     </script>
+    <!-- Footer Section -->
+    <footer style="
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #f1f1f1;
+        padding: 40px 20px;
+        text-align: center;
+        margin-top: 50px;
+    ">
+        <div style="
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        ">
+            <div style="
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+                flex-wrap: wrap;
+            ">
+                <div style="flex: 1; min-width: 200px;">
+                    <h3 style="color: #00aaff; margin-bottom: 15px;">Game Space</h3>
+                    <p style="color: #ccc;">Your ultimate gaming destination with exciting games and challenges.</p>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <h3 style="color: #00aaff; margin-bottom: 15px;">Quick Links</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 8px;"><a href="/about" style="color: #ccc; text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#00aaff'" onmouseout="this.style.color='#ccc'">About Us</a></li>
+                        <li style="margin-bottom: 8px;"><a href="/login" style="color: #ccc; text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#00aaff'" onmouseout="this.style.color='#ccc'">Login</a></li>
+                        <li style="margin-bottom: 8px;"><a href="/contact" style="color: #ccc; text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#00aaff'" onmouseout="this.style.color='#ccc'">Contact</a></li>
+                        <li style="margin-bottom: 8px;"><a href="/privacy" style="color: #ccc; text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#00aaff'" onmouseout="this.style.color='#ccc'">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <h3 style="color: #00aaff; margin-bottom: 15px;">Contact Us</h3>
+                    <div style="text-align: left; color: #ccc; line-height: 1.6;">
+                        <p style="margin-bottom: 8px;"><i class="fas fa-envelope" style="margin-right: 10px; color: #00aaff;"></i> rayhaansam21@.com</p>
+                        <p style="margin-bottom: 8px;"><i class="fas fa-phone" style="margin-right: 10px; color: #00aaff;"></i> +91 7396327526</p>
+                        <p style="margin-bottom: 8px;"><i class="fas fa-map-marker-alt" style="margin-right: 10px; color: #00aaff;"></i> Central bank colony, Lb Nagar</p>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #333; padding-top: 20px;">
+                <p style="color: #777;">&copy; 2025 Game Space. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
 </body>
 
 </html>
