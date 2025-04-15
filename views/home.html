@@ -162,28 +162,28 @@
         }
 
         .dropdown button {
-            display: block;
-            background: rgba(10, 10, 26, 0.9);
-            padding: 12px 20px;
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(0, 170, 255, 0.1);
-            border: 0;
-            min-width: 200px;
-            
-        }
-        
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    padding: 12px 20px;
+    color: var(--light);
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 170, 255, 0.1);
+}
 
-        .dropdown button:last-child {
-            border-bottom: none;
-        }
+.dropdown button:last-child {
+    border-bottom: none;
+}
 
-        .dropdown button:hover {
-            background: rgba(0, 170, 255, 0.2);
-            padding-left: 25px;
-        }
-
+.dropdown button:hover {
+    background: rgba(0, 170, 255, 0.2);
+    padding-left: 25px;
+}
         /* Main Content */
         main {
             padding-top: 120px;
@@ -402,7 +402,6 @@
         <div class="user-actions">
             <button class="user-btn">MENU</button>
             <div class="dropdown">
-                <a href="/profile">Profile</a>
                 <a href="/changepassword">Change Password</a>
                 <button onclick="logout()">Logout</button>
 
@@ -440,7 +439,7 @@
                     <div class="game-card-content">
                         <h3>HyperGlide</h3>
                         <p>A futuristic, fast-paced racing game with stunning visuals and intense competition.</p>
-                        <a href="../views/game2.html" class="play-btn">Play Now</a>
+                        <a href="/game2" class="play-btn">Play Now</a>
                     </div>
                 </div>
 
@@ -456,7 +455,25 @@
 
                 <!-- Game 4 -->
                 <div class="game-card">
-                    <img src="public/images/game4.jpg" alt="Memory Match Game" class="game-card-img">
+                    <img src="../images/memorymatch.jpeg" alt="Memory Match Game" class="game-card-img">
+                    <div class="game-card-content">
+                        <h3>Memory Match</h3>
+                        <p>Test your memory with this fun matching game featuring various difficulty levels.</p>
+                        <a href="/play/memory" class="play-btn">Play Now</a>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <img src="../images/pacman.jpg" alt="Memory Match Game" class="game-card-img">
+                    <div class="game-card-content">
+                        <h3>Memory Match</h3>
+                        <p>Test your memory with this fun matching game featuring various difficulty levels.</p>
+                        <a href="/play/memory" class="play-btn">Play Now</a>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <img src="../images/memorymatch.jpeg" alt="Memory Match Game" class="game-card-img">
                     <div class="game-card-content">
                         <h3>Memory Match</h3>
                         <p>Test your memory with this fun matching game featuring various difficulty levels.</p>

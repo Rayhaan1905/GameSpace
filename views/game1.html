@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HyperGlide - Game Space</title>
+    <title>Play Now - Game Space</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Match your homepage styles */
@@ -155,7 +155,7 @@
         <div class="game-header" id="game-header">
             <div class="game-title">
                 <i class="fas fa-gamepad"></i>
-                <span>Game Space - Playing: <span id="game-name">HyperGlide</span></span>
+                <span>Game Space - Playing: <span id="game-name">Your Game</span></span>
             </div>
             <div class="game-controls">
                 <button class="control-btn" id="fullscreen-btn">
@@ -174,7 +174,7 @@
         </div>
         
         <!-- Game will be loaded here -->
-        <iframe src="/games/HexGL/index.html" class="game-frame" id="game-frame" 
+        <iframe src="/views/games/bounce/index.html" class="game-frame" id="game-frame" 
                 allow="fullscreen" style="display: none;"></iframe>
     </div>
 
@@ -248,7 +248,7 @@
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 }
-                window.location.href = '/games.html'; // Change to your games listing page
+                window.location.href = '/home.html'; // Change to your games listing page
             }
         });
         

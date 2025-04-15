@@ -3,34 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Game Space</title>
+    <title>Play Now - Game Space</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Match homepage styles */
+        /* Match your homepage styles */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #121212;
+            background-color: #000;
             color: #f1f1f1;
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
+            overflow: hidden;
+            height: 100vh;
         }
 
         /* Animated background overlay */
-        .contact-hero {
-            position: relative;
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
-            overflow: hidden;
-        }
-
-        .contact-hero::before {
+        .game-launcher::before {
             content: '';
-            position: absolute;
+            position: fixed;
             width: 200%;
             height: 200%;
             top: -50%;
@@ -46,375 +36,277 @@
             100% { transform: translate(-50%, -50%); }
         }
 
-        .contact-hero-content {
+        /* Main container */
+        .game-launcher {
             position: relative;
-            z-index: 1;
-        }
-
-        .contact-hero h1 {
-            font-size: 3.5em;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            color: white;
-        }
-
-        .contact-hero p {
-            font-size: 1.2em;
-            max-width: 700px;
-            margin: 0 auto;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* Main contact container */
-        .contact-container {
-            max-width: 1200px;
-            margin: -50px auto 50px;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Contact card with glass morphism effect */
-        .contact-card {
-            background: rgba(34, 40, 49, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
-            display: flex;
-            flex-wrap: wrap;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Contact info section */
-        .contact-info {
-            flex: 1;
-            min-width: 300px;
-            padding: 40px;
-            background: rgba(0, 170, 255, 0.1);
-            border-right: 1px solid rgba(0, 170, 255, 0.2);
-        }
-
-        .contact-info h2 {
-            color: #00aaff;
-            margin-bottom: 30px;
-            font-size: 2em;
-            position: relative;
-            display: inline-block;
-        }
-
-        .contact-info h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: #00aaff;
-        }
-
-        .contact-method {
-            display: flex;
+        /* Header that shows when not in fullscreen */
+        .game-header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 30px;
+            display: none; /* Hidden by default */
+            justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            transition: transform 0.3s ease;
+            z-index: 2;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.3);
         }
 
-        .contact-method:hover {
-            transform: translateX(10px);
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 170, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            font-size: 1.2em;
+        .game-title {
             color: #00aaff;
-            border: 1px solid rgba(0, 170, 255, 0.3);
-        }
-
-        .contact-details h3 {
-            margin: 0 0 5px;
-            color: #f1f1f1;
-        }
-
-        .contact-details p, .contact-details a {
-            margin: 0;
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-details a:hover {
-            color: #00aaff;
-        }
-
-        /* Social media links */
-        .social-links {
+            font-size: 1.5em;
             display: flex;
-            gap: 15px;
-            margin-top: 40px;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #f1f1f1;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: #00aaff;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 170, 255, 0.4);
-        }
-
-        /* Contact form */
-        .contact-form {
-            flex: 1;
-            min-width: 300px;
-            padding: 40px;
-        }
-
-        .contact-form h2 {
-            color: #00aaff;
-            margin-bottom: 30px;
-            font-size: 2em;
-            position: relative;
-            display: inline-block;
-        }
-
-        .contact-form h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: #00aaff;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #f1f1f1;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: #f1f1f1;
-            font-family: 'Arial', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: #00aaff;
-            box-shadow: 0 0 0 2px rgba(0, 170, 255, 0.3);
-        }
-
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background: #00aaff;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            display: inline-flex;
             align-items: center;
             gap: 10px;
         }
 
-        .submit-btn:hover {
-            background: #0088cc;
+        .game-controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .control-btn {
+            background: rgba(0, 170, 255, 0.2);
+            color: #f1f1f1;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .control-btn:hover {
+            background: rgba(0, 170, 255, 0.4);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 170, 255, 0.4);
         }
 
-        /* Map section */
-        .map-container {
-            margin-top: 50px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            height: 400px;
+        /* Game container */
+        .game-container {
+            flex: 1;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            background: #000;
         }
 
-        .map-container iframe {
+        /* Game frame */
+        .game-frame {
             width: 100%;
             height: 100%;
             border: none;
+            background: #000;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .contact-hero h1 {
-                font-size: 2.5em;
-            }
-            
-            .contact-card {
-                flex-direction: column;
-            }
-            
-            .contact-info {
-                border-right: none;
-                border-bottom: 1px solid rgba(0, 170, 255, 0.2);
-            }
+        /* Loading screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0, 170, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #00aaff;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #00aaff;
+            font-size: 1.2em;
+            margin-top: 15px;
+        }
+
+        .error-message {
+            text-align: center;
+            color: #ff6b6b;
+            max-width: 80%;
+        }
+
+        .back-btn {
+            background: #00aaff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #0088cc;
+            transform: translateY(-2px);
+        }
+
+        /* Fullscreen specific styles */
+        :fullscreen .game-header {
+            display: none;
+        }
+        
+        :fullscreen .game-frame {
+            height: 100vh;
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="contact-hero">
-        <div class="contact-hero-content">
-            <h1>Get In Touch</h1>
-            <p>Have questions, feedback, or partnership inquiries? Our team is ready to help you level up your gaming experience.</p>
-        </div>
-    </section>
-
-    <!-- Main Contact Content -->
-    <div class="contact-container">
-        <div class="contact-card">
-            <!-- Contact Information -->
-            <div class="contact-info">
-                <h2>Contact Info</h2>
-                
-                <div class="contact-method">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h3>Our Headquarters</h3>
-                        <p>Central bank colony<br> Lb Nagar,Hyderabad</p>
-                    </div>
-                </div>
-                
-                <div class="contact-method">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h3>Call Us</h3>
-                        <p><a href="tel:+15551234567">+91 9000823302</a></p>
-                        <p>Mon-Fri: 5PM - 9PM IST</p>
-                    </div>
-                </div>
-                
-                <div class="contact-method">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h3>Email Us</h3>
-                        <p><a href="mailto:contact@gamespace.com">Sameeruddin1512@.com</a></p>
-                        <p>Support: <a href="mailto:support@gamespace.com">rishimashetti@.com</a></p>
-                    </div>
-                </div>
-                
-                <h3 style="margin-top: 40px; color: #f1f1f1;">Connect With Us</h3>
-                <div class="social-links">
-                    <a href="https://twitter.com/rishimashetti
-                    " class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/rayhaan_2508" class="social-link"> <i class="fab fa-instagram"></i></a>
-                    <a href="https://github.com/Rayhaan1905
-                    " class="social-link"><i class="fab fa-github"></i></a>
-                </div>
+    <div class="game-launcher">
+        <!-- Game Header (hidden by default) -->
+        <div class="game-header" id="game-header">
+            <div class="game-title">
+                <i class="fas fa-gamepad"></i>
+                <span>Game Space - Playing: <span id="game-name">Your Game</span></span>
             </div>
-            
-            <!-- Contact Form -->
-            <div class="contact-form">
-                <h2>Send Us a Message</h2>
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <select id="subject" class="form-control" required>
-                            <option value="" disabled selected>Select a topic</option>
-                            <option value="support">Technical Support</option>
-                            <option value="feedback">Game Feedback</option>
-                            <option value="business">Business Inquiry</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea id="message" class="form-control" required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                </form>
+            <div class="game-controls">
+                <button class="control-btn" id="fullscreen-btn">
+                    <i class="fas fa-expand"></i> Fullscreen
+                </button>
+                <button class="control-btn" id="exit-btn">
+                    <i class="fas fa-times"></i> Exit Game
+                </button>
             </div>
         </div>
         
-        <!-- Map Section -->
-        <div class="map-container">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.344031381574!2d78.55727099999999!3d17.347252!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb985640ea6a3b%3A0xad3d8b003d1c1e1a!2sCentral%20Bank%20Colony%2C%20Lal%20Bahadur%20Nagar%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1718288487676!5m2!1sen!2sin" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+        <!-- Loading Screen (shown initially) -->
+        <div class="loading-screen" id="loading-screen">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading Game...</div>
         </div>
+        
+        <!-- Game will be loaded here -->
+        <iframe src="" class="game-frame" id="game-frame" allow="fullscreen" style="display: none;"></iframe>
+    </div>
 
     <script>
-        // Simple form submission handler
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Get DOM elements
+        const loadingScreen = document.getElementById('loading-screen');
+        const gameFrame = document.getElementById('game-frame');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const exitBtn = document.getElementById('exit-btn');
+        const gameHeader = document.getElementById('game-header');
+        const gameNameElement = document.getElementById('game-name');
+        const gameContainer = document.documentElement;
+
+        // Get game name from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const gameName = urlParams.get('game') || 'HexGL'; // Default to HexGL if no parameter
+        
+        // Set game name in UI
+        gameNameElement.textContent = gameName;
+        
+        // Set game path based on game name
+        const gamePaths = {
+            'hexgl': '/games/HexGL/index.html',
+            '2048': '/games/2048/index.html',
+            'tictactoe': '/games/tictactoe/index.html'
+            // Add more games as needed
+        };
+        
+        const gamePath = gamePaths[gameName.toLowerCase()] || '/games/HexGL/index.html';
+        
+        // Initialize game
+        function initializeGame() {
+            gameFrame.src = gamePath;
             
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
+            // Hide loading screen when game loads
+            gameFrame.onload = function() {
+                loadingScreen.style.display = 'none';
+                gameFrame.style.display = 'block';
+                enterFullscreen();
+            };
             
-            // Here you would typically send this data to your server
-            console.log('Form submitted:', { name, email, subject, message });
-            
-            // Show success message (in a real app, you'd want something more sophisticated)
-            alert(`Thanks for your message, ${name}! We'll get back to you soon.`);
-            
-            // Reset form
-            this.reset();
+            // Handle game loading errors
+            gameFrame.onerror = function() {
+                loadingScreen.innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle fa-3x"></i>
+                        <h2>Error Loading Game</h2>
+                        <p>Failed to load ${gameName}. Please try again later.</p>
+                        <button class="back-btn" onclick="window.location.href='/home'">
+                            Back to Games
+                        </button>
+                    </div>
+                `;
+            };
+        }
+        
+        // Enter fullscreen immediately when page loads
+        function enterFullscreen() {
+            if (!document.fullscreenElement) {
+                if (gameContainer.requestFullscreen) {
+                    gameContainer.requestFullscreen().catch(err => {
+                        console.error('Fullscreen error:', err);
+                        showHeader();
+                    });
+                } else if (gameContainer.webkitRequestFullscreen) {
+                    gameContainer.webkitRequestFullscreen();
+                } else if (gameContainer.msRequestFullscreen) {
+                    gameContainer.msRequestFullscreen();
+                }
+            }
+        }
+        
+        // Show header when exiting fullscreen
+        function showHeader() {
+            gameHeader.style.display = 'flex';
+        }
+        
+        // Fullscreen functionality
+        fullscreenBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                enterFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
         });
+        
+        // Handle fullscreen change events
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                showHeader();
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> Fullscreen';
+            } else {
+                gameHeader.style.display = 'none';
+                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i> Exit Fullscreen';
+            }
+        });
+        
+        // Exit game functionality
+        exitBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to exit the game?')) {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+                window.location.href = '/home'; // Change to your games listing page
+            }
+        });
+        
+        // Start the game
+        initializeGame();
     </script>
 </body>
 </html>

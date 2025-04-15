@@ -47,6 +47,12 @@ app.get("/changepassword",(req, res)=>{
     res.sendFile(path.join(__dirname, 'views', "changePassword.html"));
 });
 
+app.get("/game2",(req, res)=>{
+    res.sendFile(path.join(__dirname, 'views', "game2.html"))
+});
+
+
+
 app.use("/backend",authRoutes);
 
 app.listen(3000, ()=>console.log("Server started"));
