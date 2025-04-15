@@ -3,10 +3,12 @@ require("dotenv").config();
 const connectDB = require('./db/db');
 const path = require("path");
 const authRoutes = require('./controllers/authController');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
 connectDB();
+app.use(cookieParser());
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
@@ -39,6 +41,10 @@ app.get("/home",(req, res)=>{
 
 app.get("/privacy",(req, res)=>{
     res.sendFile(path.join(__dirname, 'views', "privacy.html"))
+});
+
+app.get("/changepassword",(req, res)=>{
+    res.sendFile(path.join(__dirname, 'views', "changePassword.html"));
 });
 
 app.use("/backend",authRoutes);

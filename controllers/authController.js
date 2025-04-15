@@ -38,7 +38,7 @@ const login = async (req, res) => {
 
         const match = await bcrypt.compare(password, user.passwordHash);
         if (match) {
-            const token = jwt.sign({ username: user.username }, process.env.SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ userId: user._id }, process.env.SECRET, { expiresIn: '1h' });
 
             res.cookie('token', token, {
                 httpOnly: true,       // prevents JS from reading the cookie
@@ -59,6 +59,33 @@ const login = async (req, res) => {
 }
 router.post('/login', login);
 
+const middleware = async (req, res, next) => {
+    if (!req.cookies.token) {
+        return res.status(401).json({
+            ok: false,
+            message: "Not authorized: No token"
+        });
+    }
+
+    try {
+        const decoded = jwt.verify(req.cookies.token, process.env.SECRET);
+        const user = await User.findById(decoded.userId);
+        
+        if (!user) {
+            throw new Error("No userId found");
+        }
+
+        req.user = user;
+        next();
+    } catch (error) {
+        console.error(error);
+        return res.status(401).json({
+            ok: false,
+            message: "Not authorized: Invalid token"
+        });
+    }
+}
+
 const logout = async (req, res) => {
     try {
         res.clearCookie("token")
@@ -69,6 +96,36 @@ const logout = async (req, res) => {
         res.status(500).json({ ok: false, message: 'Internal server error' });
     }
 };
-router.post('/logout', logout);
+router.post('/logout', middleware, logout);
+
+const changePassword = async (req, res) => {
+    try {
+        const { password, newPassword } = req.body;
+
+        const userData = await User.findById(req.user._id);
+        if (!userData) {
+            return res.status(404).json({ ok: false, message: 'User not found' });
+        }
+
+        const isMatch = await bcrypt.compare(password, userData.passwordHash);
+        if (!isMatch) {
+            return res.status(400).json({ ok: false, message: 'Incorrect current password' });
+        }
+
+        if (newPassword.length < 6) {
+            return res.status(400).json({ ok: false, message: 'New password must be at least 6 characters long' });
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        userData.passwordHash = hashedPassword;
+        await userData.save();
+
+        res.status(200).json({ ok: true, message: 'Password changed successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ ok: false, message: 'Internal server error' });
+    }
+};
+router.post('/changepassword', middleware, changePassword);
 
 module.exports = router;
