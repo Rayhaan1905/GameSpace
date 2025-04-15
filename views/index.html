@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Game Space</title>
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body & Background */
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #f1f1f1;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            background-color: #121212; /* Dark background for the page */
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent header */
+            z-index: 1; /* Keep header on top */
+        }
+
+        header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        header .logo img {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        header .logo img:hover {
+            animation: bounce 0.5s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        header .logo h1 {
+            color: #f1f1f1;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #f1f1f1;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #00aaff;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 150px 70px; /* Adjust padding as needed */
+            background-color: rgba(18, 18, 18, 0.9); /* Dark background */
+            height: 100vh; /* Make the hero section fill the viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h2 {
+            font-size: 4.5em;
+            margin-bottom: 100px;
+        }
+
+        .hero p {   
+            font-size: 1.2em;
+            margin-bottom: 25px;
+        }
+
+        .cta-button {
+            padding: 10px 30px;
+            background-color: #00aaff;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            border-radius: 10px;
+            position: relative;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .cta-button:hover {
+            background-color: #0077cc;
+            transform: scale(1.1);
+        }
+
+      
+        .cta-button:active {
+            transform: scale(0.9);
+        }
+
+        /* Video Background for Hero Section */
+        .hero-video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; /* Cover the entire height of the hero section */
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .hero-video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        /* Unity Services Section */
+        .unity-services {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 60px 20px;
+            margin-top: 120px; /* Add margin-top to push it below the hero section */
+            background-color: rgba(18, 18, 18, 0.9); /* Dark background */
+        }
+
+        .unity-services .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(34, 40, 49, 0.9); /* Matching the game card background */
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .unity-services .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .unity-services .image-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .unity-services .image-container img,
+        .unity-services .image-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+        }
+
+        .unity-services .image-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .unity-services .image-container:hover img {
+            opacity: 0;
+        }
+
+        .unity-services .image-container:hover video {
+            opacity: 1;
+        }
+
+        .unity-services .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .unity-services .stat {
+            text-align: center;
+            color: #f1f1f1;
+        }
+
+        .unity-services .stat h3 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #00aaff; /* Matching the accent color */
+        }
+
+        .unity-services .stat p {
+            color: #ccc;
+            margin: 5px 0 0;
+        }
+
+        .unity-services h2 {
+            color: #f1f1f1;
+            margin-bottom: 20px;
+        }
+
+        .unity-services p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .unity-services .cta {
+            color: #00aaff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .unity-services .cta:hover {
+            color: #0077cc;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="/images/image1_0.jpg" alt="Game Space Logo">
+            <h1>Game Space</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/about">About</a></li>
+                <li><a href="/registration">Sign Up</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section with Video Background -->
+    <section class="hero">
+        <!-- Video Background for Hero Section -->
+        <div class="hero-video-background">
+            <video autoplay muted loop>
+                <source src="/videos\mainpagebackgroundfinal.mov" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="hero-content">
+            <h2>Game Space</h2>
+            <p>Welcome to the world of exciting games!</p>
+        </div>
+        <a href="/login" class="cta-button">Start Playing</a>
+    </section>
+
+    <!-- Unity Services Section -->
+    <section id="unity-services" class="unity-services">
+        <h2 style="align-self: center;font-size: 2.5em;">Games</h2>
+        <div class="container">
+            <div class="content">
+                <div class="image-container">
+                        
+                    <img src="/images/2048.jpg" alt="Games">
+                    <video autoplay loop muted>
+                        <source src="\videos\2048.mov" type="video/mp4">
+                    </video>
+                </div>
+                <div class="image-container">
+                    <img src="\images\tic-tac-yoe.png" alt="Industry">
+                    <video autoplay loop muted>
+                        <source src="\videos\tictacto.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="image-container">
+                    <img src="\images\icon_256.png" alt="Fusion Rider">
+                    <video autoplay loop muted>
+                        <source src="\videos\Timeline 1.mov" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <h3 data-target="20">0</h3>
+                    <p style="font-size: 1.3em;">Users</p>
+                </div>
+                <div class="stat">
+                    <h3 data-target="3.6">0</h3>
+                    <p style="padding-left: 30%;">Downloads per month of Made with Unity applications</p>
+                </div>
+                <div class="stat">
+                    <h3 data-target="82">0</h3>
+                    <p>of the top 100 games use Unity to grow their games</p>
+                </div>
+            </div>
+
+           
+        </div>
+    </section>
+
+    <script>
+        // Number Animation on Scroll
+        const stats = document.querySelectorAll('.stat h3');
+
+        const animateNumbers = () => {
+            stats.forEach(stat => {
+                const target = +stat.getAttribute('data-target');
+                const increment = target / 100;
+                let count = 0;
+
+                const updateNumber = () => {
+                    if (count < target) {
+                        count += increment;
+                        stat.textContent = Math.ceil(count);
+                        requestAnimationFrame(updateNumber);
+                    } else {
+                        stat.textContent = target;
+                    }
+                };
+
+                updateNumber();
+            });
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateNumbers();
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(document.querySelector('.stats'));
+    </script>
+</body>
+
+</html>

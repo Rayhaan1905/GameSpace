@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Game Space - Dashboard</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #00aaff;
+            --primary-dark: #0077cc;
+            --secondary: #ff4e50;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --light: #f1f1f1;
+            --card-bg: rgba(34, 40, 49, 0.8);
+            --glow: 0 0 15px rgba(0, 170, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--light);
+            background:
+                linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%),
+                url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2071&auto=format&fit=crop') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(10, 10, 26, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: rotate(15deg) scale(1.1);
+            filter: drop-shadow(var(--glow));
+        }
+
+        .logo h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), #00f3ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+
+        /* User Dropdown */
+        .user-actions {
+            position: relative;
+        }
+
+        .user-btn {
+            background: rgba(0, 170, 255, 0.2);
+            color: var(--light);
+            border: 1px solid var(--primary);
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-btn:hover {
+            background: rgba(0, 170, 255, 0.4);
+            box-shadow: var(--glow);
+        }
+
+        .user-btn::after {
+            content: '▼';
+            font-size: 0.6rem;
+            margin-left: 5px;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            background: rgba(10, 10, 26, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            transform: translateY(10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            min-width: 200px;
+            z-index: 101;
+        }
+
+        .user-actions:hover .dropdown {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.1);
+        }
+
+
+        .dropdown a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown a:hover {
+            background: rgba(0, 170, 255, 0.2);
+            padding-left: 25px;
+        }
+
+        .dropdown button {
+            display: block;
+            background: rgba(10, 10, 26, 0.9);
+            padding: 12px 20px;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.1);
+            border: 0;
+            min-width: 200px;
+            
+        }
+        
+
+        .dropdown button:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown button:hover {
+            background: rgba(0, 170, 255, 0.2);
+            padding-left: 25px;
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 120px;
+            padding-bottom: 60px;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            text-align: center;
+            padding: 40px 5%;
+            margin-bottom: 40px;
+        }
+
+        .welcome-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #ff4e50, #f9d423);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 78, 80, 0.3);
+            animation: textGlow 2s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 78, 80, 0.3);
+            }
+
+            100% {
+                text-shadow: 0 0 20px rgba(249, 212, 35, 0.5);
+            }
+        }
+
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Games Grid */
+        .games-grid {
+            padding: 0 5%;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--light);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        .games-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid rgba(0, 170, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                    rgba(0, 170, 255, 0.1) 0%,
+                    rgba(0, 170, 255, 0) 50%,
+                    rgba(0, 170, 255, 0.1) 100%);
+            z-index: -1;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), var(--glow);
+            border-color: rgba(0, 170, 255, 0.3);
+        }
+
+        .game-card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 2px solid rgba(0, 170, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .game-card:hover .game-card-img {
+            transform: scale(1.05);
+        }
+
+        .game-card-content {
+            padding: 20px;
+        }
+
+        .game-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--light);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .game-card p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .play-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 170, 255, 0.3);
+        }
+
+        .play-btn:hover {
+            background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+            box-shadow: 0 6px 20px rgba(0, 170, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: fixed;
+            background: rgba(0, 170, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .games-container {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 2.2rem;
+            }
+
+            .games-container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            header {
+                padding: 15px;
+            }
+
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+
+            .games-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="../images\image1_0.jpg" alt="Game Space Logo">
+            <h1>Game Space</h1>
+        </div>
+
+        <div class="user-actions">
+            <button class="user-btn">MENU</button>
+            <div class="dropdown">
+                <a href="/profile">Profile</a>
+                <a href="/settings">Change Password</a>
+                <button onclick="logout()">Logout</button>
+
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h1 class="welcome-title">Welcome Back, <span id="usernameDisplay">Player</span>!</h1>
+            <p class="welcome-subtitle">Your gaming adventure continues. Dive into our collection of exciting games and
+                discover new challenges to conquer.</p>
+        </section>
+
+        <!-- Games Grid Section -->
+        <section class="games-grid">
+            <h2 class="section-title">Featured Games</h2>
+            <div class="games-container">
+                <!-- Game 1 -->
+                <div class="game-card">
+                    <img src="../images/2048.jpg" alt="2048 Game" class="game-card-img">
+                    <div class="game-card-content">
+                        <h3>2048</h3>
+                        <p>A fun and addictive puzzle game. Combine tiles to reach 2048 and beat your high score!</p>
+                        <a href="games/2048/index.html" class="play-btn">Play Now</a>
+                    </div>
+                </div>
+
+                <!-- Game 2 -->
+                <div class="game-card">
+                    <img src="../images/icon_256.png" alt="HyperGlide Game" class="game-card-img">
+                    <div class="game-card-content">
+                        <h3>HyperGlide</h3>
+                        <p>A futuristic, fast-paced racing game with stunning visuals and intense competition.</p>
+                        <a href="../views/game2.html" class="play-btn">Play Now</a>
+                    </div>
+                </div>
+
+                <!-- Game 3 -->
+                <div class="game-card">
+                    <img src="../images/tic-tac-yoe.png" alt="Tic Tac Toe Game" class="game-card-img">
+                    <div class="game-card-content">
+                        <h3>Tic Tac Toe</h3>
+                        <p>Play the classic Tic Tac Toe game against our smart AI or challenge your friends.</p>
+                        <a href="/play/tictactoe" class="play-btn">Play Now</a>
+                    </div>
+                </div>
+
+                <!-- Game 4 -->
+                <div class="game-card">
+                    <img src="public/images/game4.jpg" alt="Memory Match Game" class="game-card-img">
+                    <div class="game-card-content">
+                        <h3>Memory Match</h3>
+                        <p>Test your memory with this fun matching game featuring various difficulty levels.</p>
+                        <a href="/play/memory" class="play-btn">Play Now</a>
+                    </div>
+                </div>
+
+                <!-- Add more game cards as needed -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const colors = ['rgba(0, 170, 255, 0.5)', 'rgba(255, 78, 80, 0.5)', 'rgba(249, 212, 35, 0.5)'];
+
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const duration = 10 + Math.random() * 20;
+                const delay = Math.random() * 5;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.background = color;
+                particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+
+                document.body.appendChild(particle);
+            }
+        }
+
+        // Add floating animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes float {
+                0% {
+                    transform: translate(0, 0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(calc(${Math.random() * 200 - 100}px), calc(${Math.random() * 200 - 100}px)) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize particles
+        window.addEventListener('load', createParticles);
+    </script>
+    <script>
+        // Function to get username from login (this assumes you stored it)
+        function displayUsername() {
+            // Method 1: Get from sessionStorage (most common)
+            const username = sessionStorage.getItem('username') || 'Player';
+
+            // Method 2: Get from localStorage (if you used that instead)
+            // const username = localStorage.getItem('username') || 'Player';
+
+            // Method 3: Get from URL parameters (if you passed it that way)
+            // const urlParams = new URLSearchParams(window.location.search);
+            // const username = urlParams.get('username') || 'Player';
+
+            // Update the display
+            document.getElementById('usernameDisplay').textContent = username;
+        }
+
+        // Call the function when page loads
+        window.addEventListener('DOMContentLoaded', displayUsername);
+
+        function logout() {
+            fetch('/backend/logout', {
+                method: 'POST',
+                credentials: 'include'
+            }).then(res => {
+                if (res.ok) {
+                    window.location.href = '/login'; // redirect to login page
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,574 @@
+<!--<div class="social-login">
+    <div class="social-btn animate__animated animate__fadeInLeft" style="animation-delay: 0.5s;">
+        <i class="fab fa-google"></i>
+    </div>
+    <div class="social-btn animate__animated animate__fadeInLeft" style="animation-delay: 0.7s;">
+        <i class="fab fa-facebook-f"></i>
+    </div>
+    <div class="social-btn animate__animated animate__fadeInLeft" style="animation-delay: 0.9s;">
+        <i class="fab fa-twitter"></i>
+    </div>
+    <div class="social-btn animate__animated animate__fadeInLeft" style="animation-delay: 1.1s;">
+        <i class="fab fa-discord"></i>
+    </div>
+</div> -->
+
+
+
+<!---
+<div class="features">
+    <div class="feature animate__animated animate__fadeInRight" style="animation-delay: 0.5s;">
+        <span class="feature-icon">🎮</span>
+        <span>Exclusive Tournaments</span>
+    </div>
+    <div class="feature animate__animated animate__fadeInRight" style="animation-delay: 0.7s;">
+        <span class="feature-icon">🏆</span>
+        <span>Daily Rewards</span>
+    </div>
+    <div class="feature animate__animated animate__fadeInRight" style="animation-delay: 0.9s;">
+        <span class="feature-icon">👥</span>
+        <span>Global Leaderboards</span>
+    </div>
+    <div class="feature animate__animated animate__fadeInRight" style="animation-delay: 1.1s;">
+        <span class="feature-icon">💬</span>
+        <span>Community Chat</span>
+    </div>
+</div>
+</div>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EpicGameZone | Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6e00ff;
+            --secondary: #ff00aa;
+            --dark: #0f0f1a;
+            --light: #f0f0ff;
+            --accent: #00ffcc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Smooth Background Animation */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            animation: float 15s infinite linear;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: 20%;
+            left: 10%;
+            animation-duration: 20s;
+            animation-delay: 0s;
+        }
+        
+        .circle-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--secondary);
+            top: 60%;
+            left: 70%;
+            animation-duration: 25s;
+            animation-delay: 5s;
+        }
+        
+        .circle-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent);
+            top: 30%;
+            left: 80%;
+            animation-duration: 15s;
+            animation-delay: 10s;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, 50px) rotate(90deg); }
+            50% { transform: translate(100px, 0) rotate(180deg); }
+            75% { transform: translate(50px, -50px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat linear infinite;
+            will-change: transform;
+        }
+        
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .register-container {
+            display: flex;
+            width: 100%;
+            max-width: 900px;
+            background: rgba(15, 15, 26, 0.85);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(110, 0, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: gentleFloat 8s ease-in-out infinite;
+        }
+        
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .left-section {
+            flex: 1.5;
+            padding: 3rem;
+            position: relative;
+        }
+        
+        .right-section {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(110, 0, 255, 0.15), rgba(255, 0, 170, 0.15));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .right-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at center, rgba(0, 255, 204, 0.05) 0%, transparent 70%);
+            animation: rotateGradient 30s linear infinite;
+            z-index: 0;
+        }
+        
+        @keyframes rotateGradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .logo {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+            animation: softPulse 3s infinite alternate;
+        }
+        
+        @keyframes softPulse {
+            0% { opacity: 0.9; text-shadow: 0 0 10px rgba(0, 255, 204, 0.5); }
+            100% { opacity: 1; text-shadow: 0 0 15px rgba(0, 255, 204, 0.8); }
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.3s; }
+        .form-group:nth-child(3) { animation-delay: 0.5s; }
+        .form-group:nth-child(4) { animation-delay: 0.7s; }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.9rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: var(--light);
+            font-family: 'Orbitron', sans-serif;
+            transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0, 255, 204, 0.3);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(110, 0, 255, 0.4);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            left: 0;
+        }
+        
+        .game-character {
+            width: 250px;
+            height: 250px;
+            background: url('../images/multiplayerBanner2.svg') center/contain no-repeat;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 204, 0.4));
+            animation: gentleBounce 4s ease-in-out infinite;
+        }
+        
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+        
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .social-btn:nth-child(1) { animation-delay: 0.9s; }
+        .social-btn:nth-child(2) { animation-delay: 1.1s; }
+        .social-btn:nth-child(3) { animation-delay: 1.3s; }
+        .social-btn:nth-child(4) { animation-delay: 1.5s; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px) scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .login-link {
+            margin-top: 1.5rem;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 1.7s forwards;
+        }
+        
+        .login-link a {
+            color: var(--accent);
+            text-decoration: none;
+            position: relative;
+            font-size: 0.9rem;
+        }
+        
+        .login-link a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .login-link a:hover::after {
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .register-container {
+                flex-direction: column;
+            }
+            
+            .left-section, .right-section {
+                padding: 2rem;
+            }
+            
+            .game-character {
+                width: 180px;
+                height: 180px;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+    </div>
+    
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="register-container">
+            <div class="left-section">
+                <div class="logo">GameSpace</div>
+                <h1>Create Account</h1>
+                
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Your gaming alias" required>
+                    </div>
+                    
+                    
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" placeholder="••••••••" required>
+                    </div>
+                    
+                    <button type="submit" class="btn">Sign Up </button>
+                </form>
+                
+                
+                
+                <div class="login-link">
+                    Already a member? <a href="/login">Sign In</a>
+                </div>
+            </div>
+            
+            <div class="right-section">
+                <div class="game-character"></div>
+                <h2 style="position: relative; z-index: 1; margin-top: 1rem;">JOIN THE ARENA</h2>
+                <p style="position: relative; z-index: 1; text-align: center; max-width: 300px;">
+                    Register now to unlock exclusive content and join our gaming community!
+                </p>
+            </div>
+        </div>
+    </div>
+    
+<script>
+    document.getElementById('registerForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch('/backend/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                window.location.href = '/login';
+            } else {
+                console.error('Registration failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+</script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        // Optimized form submission
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = this.querySelector('button');
+            btn.textContent = 'CREATING ACCOUNT...';
+            btn.style.pointerEvents = 'none';
+            
+            setTimeout(() => {
+                btn.textContent = 'ACCOUNT CREATED!';
+                btn.style.background = 'linear-gradient(45deg, #00cc88, #00ffaa)';
+                
+                // Redirect or show success message
+                setTimeout(() => {
+                    // window.location.href = 'dashboard.html';
+                }, 1000);
+            }, 1500);
+        });
+        
+        // Add subtle hover effect to inputs
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('mouseenter', () => {
+                input.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('mouseleave', () => {
+                input.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Optimized particle creation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15; // Reduced for performance
+            
+            // Clear existing particles
+            particlesContainer.innerHTML = '';
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties with constrained ranges
+                const size = Math.random() * 5 + 2;
+                const posX = Math.random() * 100;
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 10;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.bottom = `-${size}px`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.background = `hsl(${Math.random() * 60 + 180}, 100%, 70%)`;
+                particle.style.willChange = 'transform, opacity';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize with optimized particles
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Recreate particles periodically to prevent memory issues
+            setInterval(createParticles, 30000);
+        });
+    </script>
+</body>
+</html>

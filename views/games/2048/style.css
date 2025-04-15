@@ -1,0 +1,76 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #faf8ef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.game-container {
+  text-align: center;
+}
+
+h1 {
+  color: #776e65;
+}
+
+.score-container {
+  margin: 10px 0;
+  font-size: 20px;
+  color: #776e65;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: repeat(4, 100px);
+  gap: 10px;
+  background-color: #bbada0;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: #cdc1b4;
+  border-radius: 5px;
+  color: #776e65;
+  transition: transform 0.1s ease-in-out;
+}
+
+.tile[data-value="2"] { background-color: #eee4da; }
+.tile[data-value="4"] { background-color: #ede0c8; }
+.tile[data-value="8"] { background-color: #f2b179; }
+.tile[data-value="16"] { background-color: #f59563; }
+.tile[data-value="32"] { background-color: #f67c5f; }
+.tile[data-value="64"] { background-color: #f65e3b; }
+.tile[data-value="128"] { background-color: #edcf72; }
+.tile[data-value="256"] { background-color: #edcc61; }
+.tile[data-value="512"] { background-color: #edc850; }
+.tile[data-value="1024"] { background-color: #edc53f; }
+.tile[data-value="2048"] { background-color: #edc22e; }
+
+.tile.merge-animation {
+  transform: scale(1.1);
+}
+
+#reset-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #8f7a66;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#reset-button:hover {
+  background-color: #776e65;
+}
