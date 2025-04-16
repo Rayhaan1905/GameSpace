@@ -3,295 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Play Now - Game Space</title>
+    <title>Game Launcher</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Match your homepage styles */
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #000;
-            color: #f1f1f1;
             margin: 0;
             padding: 0;
             overflow: hidden;
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
         }
-
-        /* Animated background overlay */
-        .game-launcher::before {
-            content: '';
-            position: fixed;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            background: url('https://assets.codepen.io/3364143/game-grid.png') 0 0 repeat;
-            opacity: 0.1;
-            animation: moveGrid 60s linear infinite;
-            z-index: 0;
-        }
-
-        @keyframes moveGrid {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-50%, -50%); }
-        }
-
-        /* Main container */
-        .game-launcher {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        /* Header that shows when not in fullscreen */
-        .game-header {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px 30px;
-            display: none; /* Hidden by default */
-            justify-content: space-between;
-            align-items: center;
-            z-index: 2;
-            border-bottom: 1px solid rgba(0, 170, 255, 0.3);
-        }
-
-        .game-title {
-            color: #00aaff;
-            font-size: 1.5em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .game-controls {
-            display: flex;
-            gap: 15px;
-        }
-
-        .control-btn {
-            background: rgba(0, 170, 255, 0.2);
-            color: #f1f1f1;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .control-btn:hover {
-            background: rgba(0, 170, 255, 0.4);
-            transform: translateY(-2px);
-        }
-
-        /* Game container */
-        .game-container {
-            flex: 1;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            background: #000;
-        }
-
-        /* Game frame */
-        .game-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: #000;
-        }
-
-        /* Loading screen */
-        .loading-screen {
+        
+        /* Loading screen styles */
+        #loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: #000;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 10;
+            z-index: 100;
+            color: #00aaff;
         }
-
-        .loading-spinner {
+        
+        .spinner {
             width: 50px;
             height: 50px;
             border: 5px solid rgba(0, 170, 255, 0.3);
+            border-top: 5px solid #00aaff;
             border-radius: 50%;
-            border-top-color: #00aaff;
-            animation: spin 1s ease-in-out infinite;
+            animation: spin 1s linear infinite;
             margin-bottom: 20px;
         }
-
+        
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-
-        .loading-text {
-            color: #00aaff;
-            font-size: 1.2em;
-            margin-top: 15px;
-        }
-
-        .error-message {
-            text-align: center;
-            color: #ff6b6b;
-            max-width: 80%;
-        }
-
-        .back-btn {
-            background: #00aaff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-top: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .back-btn:hover {
-            background: #0088cc;
-            transform: translateY(-2px);
-        }
-
-        /* Fullscreen specific styles */
-        :fullscreen .game-header {
+        
+        /* Game container styles */
+        #game-container {
+            width: 80%;
+            height: 80%;
+            position: relative;
             display: none;
         }
         
-        :fullscreen .game-frame {
-            height: 100vh;
+        /* Game frame styles */
+        #game-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.2);
+        }
+        
+        /* Control bar styles */
+        #control-bar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 50;
+        }
+        
+        .control-btn {
+            background: rgba(0, 170, 255, 0.7);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .control-btn:hover {
+            background: rgba(0, 170, 255, 0.9);
+            transform: translateY(-2px);
+        }
+        
+        /* Fullscreen styles */
+        :fullscreen #game-container {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 0 !important;
+        }
+        
+        :fullscreen #control-bar {
+            bottom: 30px;
+            right: 30px;
         }
     </style>
 </head>
 <body>
-    <div class="game-launcher">
-        <!-- Game Header (hidden by default) -->
-        <div class="game-header" id="game-header">
-            <div class="game-title">
-                <i class="fas fa-gamepad"></i>
-                <span>Game Space - Playing: <span id="game-name">Your Game</span></span>
-            </div>
-            <div class="game-controls">
-                <button class="control-btn" id="fullscreen-btn">
-                    <i class="fas fa-expand"></i> Fullscreen
-                </button>
-                <button class="control-btn" id="exit-btn">
-                    <i class="fas fa-times"></i> Exit Game
-                </button>
-            </div>
-        </div>
-        
-        <!-- Loading Screen (shown initially) -->
-        <div class="loading-screen" id="loading-screen">
-            <div class="loading-spinner"></div>
-            <div class="loading-text">Loading Game...</div>
-        </div>
-        
-        <!-- Game will be loaded here -->
-        <iframe src="" class="game-frame" id="game-frame" allow="fullscreen" style="display: none;"></iframe>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <div>Loading Game...</div>
+    </div>
+    
+    <!-- Game Container -->
+    <div id="game-container">
+        <iframe id="game-frame" src="../public/games/HexGL/index.html" allow="fullscreen"></iframe>
+    </div>
+    
+    <!-- Control Bar -->
+    <div id="control-bar" style="display: none;">
+        <button id="fullscreen-btn" class="control-btn">
+            <i class="fas fa-expand"></i> Fullscreen
+        </button>
+        <button id="exit-btn" class="control-btn">
+            <i class="fas fa-times"></i> Exit Game
+        </button>
     </div>
 
     <script>
-        // Get DOM elements
-        const loadingScreen = document.getElementById('loading-screen');
+        // DOM Elements
+        const gameContainer = document.getElementById('game-container');
         const gameFrame = document.getElementById('game-frame');
+        const loadingScreen = document.getElementById('loading-screen');
+        const controlBar = document.getElementById('control-bar');
         const fullscreenBtn = document.getElementById('fullscreen-btn');
         const exitBtn = document.getElementById('exit-btn');
-        const gameHeader = document.getElementById('game-header');
-        const gameNameElement = document.getElementById('game-name');
-        const gameContainer = document.documentElement;
-
-        // Get game name from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const gameName = urlParams.get('game') || 'HexGL'; // Default to HexGL if no parameter
         
-        // Set game name in UI
-        gameNameElement.textContent = gameName;
-        
-        // Set game path based on game name
-        const gamePaths = {
-            'hexgl': '/games/HexGL/index.html',
-            '2048': '/games/2048/index.html',
-            'tictactoe': '/games/tictactoe/index.html'
-            // Add more games as needed
+        // When game loads
+        gameFrame.onload = function() {
+            // Fade out loading screen
+            loadingScreen.style.opacity = '0';
+            loadingScreen.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                gameContainer.style.display = 'block';
+                controlBar.style.display = 'flex';
+            }, 500);
         };
         
-        const gamePath = gamePaths[gameName.toLowerCase()] || '/games/HexGL/index.html';
-        
-        // Initialize game
-        function initializeGame() {
-            gameFrame.src = gamePath;
-            
-            // Hide loading screen when game loads
-            gameFrame.onload = function() {
-                loadingScreen.style.display = 'none';
-                gameFrame.style.display = 'block';
-                enterFullscreen();
-            };
-            
-            // Handle game loading errors
-            gameFrame.onerror = function() {
-                loadingScreen.innerHTML = `
-                    <div class="error-message">
-                        <i class="fas fa-exclamation-triangle fa-3x"></i>
-                        <h2>Error Loading Game</h2>
-                        <p>Failed to load ${gameName}. Please try again later.</p>
-                        <button class="back-btn" onclick="window.location.href='/home'">
-                            Back to Games
-                        </button>
-                    </div>
-                `;
-            };
-        }
-        
-        // Enter fullscreen immediately when page loads
-        function enterFullscreen() {
-            if (!document.fullscreenElement) {
-                if (gameContainer.requestFullscreen) {
-                    gameContainer.requestFullscreen().catch(err => {
-                        console.error('Fullscreen error:', err);
-                        showHeader();
-                    });
-                } else if (gameContainer.webkitRequestFullscreen) {
-                    gameContainer.webkitRequestFullscreen();
-                } else if (gameContainer.msRequestFullscreen) {
-                    gameContainer.msRequestFullscreen();
-                }
-            }
-        }
-        
-        // Show header when exiting fullscreen
-        function showHeader() {
-            gameHeader.style.display = 'flex';
-        }
+        // If game fails to load
+        gameFrame.onerror = function() {
+            loadingScreen.innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <h2 style="color: #ff5555;">Game Failed to Load</h2>
+                    <button onclick="window.location.href='/'" 
+                            style="background: #00aaff; color: white; border: none; 
+                                   padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+                        Return to Home
+                    </button>
+                </div>
+            `;
+        };
         
         // Fullscreen functionality
         fullscreenBtn.addEventListener('click', () => {
             if (!document.fullscreenElement) {
-                enterFullscreen();
+                gameContainer.requestFullscreen().catch(err => {
+                    console.log("Fullscreen error:", err);
+                });
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 }
-            }
-        });
-        
-        // Handle fullscreen change events
-        document.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement) {
-                showHeader();
-                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> Fullscreen';
-            } else {
-                gameHeader.style.display = 'none';
-                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i> Exit Fullscreen';
             }
         });
         
@@ -301,12 +185,18 @@
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 }
-                window.location.href = '/home'; // Change to your games listing page
+                window.location.href = '/';
             }
         });
         
-        // Start the game
-        initializeGame();
+        // Update fullscreen button when fullscreen changes
+        document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement) {
+                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i> Exit Fullscreen';
+            } else {
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> Fullscreen';
+            }
+        });
     </script>
 </body>
 </html>

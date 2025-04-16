@@ -7,24 +7,36 @@ const jwt = require('jsonwebtoken');
 const register = async (req, res) => {
     try {
         const { username, password1, password2 } = req.body;
+
         if (password1 !== password2) {
             console.log("The passwords you entered do not match.");
-            res.status(400).json({ ok: false, message: 'The passwords you entered do not match' });
+            return res.status(400).json({ ok: false, message: 'The passwords you entered do not match' });
         }
-        else {
-            const pswd = await bcrypt.hash(password1, 10);
-            const user = new User({
-                username: username,
-                passwordHash: pswd
-            });
-            await user.save();
-            res.status(201).json({ ok: true, message: 'User registered successfully' });
+
+        const existing_user = await User.findOne({ username });
+        if (existing_user) {
+            return res.status(400).json({ ok: false, message: 'User already exists' });
         }
+
+        const pswd = await bcrypt.hash(password1, 10);
+        const user = new User({
+            username,
+            passwordHash: pswd
+        });
+
+        await user.save();
+        return res.status(201).json({ ok: true, message: 'User registered successfully' });
+
     } catch (error) {
+        if (error.code === 11000) {
+            // Duplicate key error from MongoDB
+            return res.status(400).json({ ok: false, message: 'User already exists (duplicate key)' });
+        }
+
         console.error(error);
-        res.status(500).json({ ok: false, message: 'Internal server error' });
+        return res.status(500).json({ ok: false, message: 'Internal server error' });
     }
-}
+};
 router.post('/register', register);
 
 const login = async (req, res) => {

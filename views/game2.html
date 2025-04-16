@@ -174,7 +174,7 @@
         </div>
         
         <!-- Game will be loaded here -->
-        <iframe src="/games/HexGL/index.html" class="game-frame" id="game-frame" 
+        <iframe src="../public/games/HexGL/index.html" class="game-frame" id="game-frame" 
                 allow="fullscreen" style="display: none;"></iframe>
     </div>
 
@@ -209,17 +209,11 @@
         }
         
         // Simulate game loading (remove this in production)
-        setTimeout(() => {
+        gameFrame.onload = () => {
             loadingScreen.style.display = 'none';
             gameFrame.style.display = 'block';
-            
-            // In production, you would listen for the game's loaded event
-            // gameFrame.onload = () => { 
-            //     loadingScreen.style.display = 'none';
-            //     gameFrame.style.display = 'block';
-            // }
-        }, 2000);
-        
+        };
+    
         // Fullscreen functionality
         fullscreenBtn.addEventListener('click', () => {
             if (!document.fullscreenElement) {
@@ -248,17 +242,18 @@
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 }
-                window.location.href = '/games.html'; // Change to your games listing page
+                window.location.href = '/home'; // Change to your games listing page
             }
         });
         
         // Update game title from URL parameter
         const urlParams = new URLSearchParams(window.location.search);
-        const gameName = urlParams.get('game') || 'Your Game';
+        const gameName = urlParams.get('game') || 'HyperGlide';
         document.getElementById('game-name').textContent = gameName;
         
         // Enter fullscreen immediately
         window.addEventListener('load', enterFullscreen);
     </script>
+    
 </body>
 </html>
