@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048 | Game Launcher</title>
+    <title>Tic Tac Toe | Game Launcher</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -349,7 +349,7 @@
     
     <!-- Game Container -->
     <div id="game-container">
-        <iframe id="game-frame" src="../games/2048/index.html" allow="fullscreen"></iframe>
+        <iframe id="game-frame" src="../games/tic-tac-toe/index.html" allow="fullscreen"></iframe>
     </div>
     
     <!-- Control Bar -->
@@ -359,8 +359,8 @@
                 <i class="fas fa-gamepad"></i>
             </div>
             <div>
-                <h1 class="game-title">2048</h1>
-                <p class="game-subtitle">A fun and addictive puzzle game</p>
+                <h1 class="game-title">Tic Tac Toe</h1>
+                <p class="game-subtitle">Tic Tac Toe is a turn-based strategy game</p>
             </div>
         </div>
         <div class="control-buttons">
@@ -458,7 +458,7 @@
         
         // Exit game functionality
         exitBtn.addEventListener('click', () => {
-            const confirmExit = confirm('Are you sure you want to exit 2048?');
+            const confirmExit = confirm('Are you sure you want to exit Tic Tac Toe?');
             if (confirmExit) {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();

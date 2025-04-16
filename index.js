@@ -93,10 +93,17 @@ app.get("/changepassword", checklogin, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', "changePassword.html"));
 });
 
+app.get("/game1", checklogin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', "game1.html"))
+});
+
 app.get("/game2", checklogin, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', "game2.html"))
 });
 
+app.get("/game3", checklogin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', "game3.html"))
+});
 
 
 app.use("/backend", authRoutes);
