@@ -50,7 +50,7 @@ const login = async (req, res) => {
 
         const match = await bcrypt.compare(password, user.passwordHash);
         if (match) {
-            const token = jwt.sign({ userId: user._id }, process.env.SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ userId: user._id }, process.env.SECRET, { expiresIn: '1d' });
 
             res.cookie('token', token, {
                 httpOnly: true,       // prevents JS from reading the cookie
