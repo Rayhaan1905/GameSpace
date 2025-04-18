@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HyperGlide | Game Launcher</title>
+    <title>PacMan | Game Launcher</title>
     <link rel="icon" type="image/png" href="../images/ChatGPT Image Apr 18, 2025, 01_39_25 PM.png">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -295,6 +294,26 @@
             background: #e04a6a;
         }
         
+        /* Fullscreen styles */
+        :fullscreen #game-container {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 0 !important;
+            transform: none !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+        
+        :fullscreen #game-container::before,
+        :fullscreen #game-container::after {
+            display: none;
+        }
+        
+        :fullscreen #control-bar {
+            padding: 15px 40px;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 10, 20, 0.9));
+        }
+        
         /* Floating particles background */
         .particles {
             position: fixed;
@@ -317,41 +336,6 @@
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
-
-        /* Fullscreen styles - UPDATED TO FIX HALF-SCREEN ISSUE */
-        :fullscreen #game-container {
-            width: 100vw !important;
-            height: 100vh !important;
-            border-radius: 0 !important;
-            transform: none !important;
-            box-shadow: none !important;
-            border: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-        
-        :fullscreen #game-frame {
-            width: 100% !important;
-            height: 100% !important;
-        }
-        
-        :fullscreen #game-container::before,
-        :fullscreen #game-container::after {
-            display: none;
-        }
-        
-        :fullscreen #control-bar {
-            padding: 15px 40px;
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 10, 20, 0.9));
-        }
-        
-        /* Ensure body takes full space in fullscreen */
-        :fullscreen {
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            background: #000 !important;
-        }
     </style>
 </head>
 <body>
@@ -366,7 +350,7 @@
     
     <!-- Game Container -->
     <div id="game-container">
-        <iframe id="game-frame" src="../games/HexGL/index.html" allow="fullscreen"></iframe>
+        <iframe id="game-frame" src="../games/pacman/index.html" allow="fullscreen"></iframe>
     </div>
     
     <!-- Control Bar -->
@@ -376,8 +360,8 @@
                 <i class="fas fa-gamepad"></i>
             </div>
             <div>
-                <h1 class="game-title">HyperGlide</h1>
-                <p class="game-subtitle">Futuristic Racing Game</p>
+                <h1 class="game-title">PacMan</h1>
+                <p class="game-subtitle">Pac-Man is a maze chase arcade game.</p>
             </div>
         </div>
         <div class="control-buttons">
@@ -475,7 +459,7 @@
         
         // Exit game functionality
         exitBtn.addEventListener('click', () => {
-            const confirmExit = confirm('Are you sure you want to exit HyperGlide?');
+            const confirmExit = confirm('Are you sure you want to exit PacMan?');
             if (confirmExit) {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();

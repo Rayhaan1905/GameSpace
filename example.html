@@ -1,486 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HyperGlide | Game Launcher</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+    <title>Game Space</title>
+    <link rel="icon" type="image/png" href="public\images\ChatGPT Image Apr 18, 2025, 01_39_25 PM.png">
+
     <style>
-        :root {
-            --primary: #00aaff;
-            --primary-dark: #0088cc;
-            --accent: #ff5e7d;
-            --text: #f0f0f0;
-            --bg: #0f0f15;
-            --bg-light: #1a1a24;
-            --bg-dark: #0a0a10;
-        }
-        
-        body {
+        /* General reset */
+        * {
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            background: var(--bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
         }
-        
-        /* Loading screen styles */
-        #loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-dark);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            color: var(--primary);
-            transition: opacity 0.5s ease, backdrop-filter 0.5s ease;
+
+        /* Body & Background */
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #f1f1f1;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            background-color: #121212; /* Dark background for the page */
         }
-        
-        .spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(0, 170, 255, 0.1);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
-            margin-bottom: 25px;
+
+        /* Header */
+        header {
             position: relative;
-        }
-        
-        .spinner::after {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            right: -8px;
-            bottom: -8px;
-            border: 4px solid rgba(0, 170, 255, 0.05);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 2s linear infinite;
-            opacity: 0.7;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .loading-text {
-            font-size: 18px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            margin-top: 20px;
-            text-transform: uppercase;
-            position: relative;
-        }
-        
-        .loading-text::after {
-            content: '...';
-            position: absolute;
-            animation: dots 1.5s steps(3, end) infinite;
-        }
-        
-        @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60%, 100% { content: '...'; }
-        }
-        
-        /* Game container styles */
-        #game-container {
-            width: 85%;
-            height: 75%;
-            position: relative;
-            display: none;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            transform: scale(0.98);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 2px solid rgba(0, 170, 255, 0.2);
-        }
-        
-        /* Frame border effect */
-        #game-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border: 2px solid transparent;
-            border-image: linear-gradient(
-                135deg,
-                rgba(0, 170, 255, 0.4) 0%,
-                rgba(0, 170, 255, 0.1) 50%,
-                rgba(0, 170, 255, 0.4) 100%
-            );
-            border-image-slice: 1;
-            border-radius: 10px;
-            pointer-events: none;
-            z-index: 2;
-        }
-        
-        #game-container::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border-radius: 12px;
-            background: linear-gradient(
-                135deg,
-                rgba(0, 170, 255, 0.1) 0%,
-                rgba(0, 170, 255, 0.05) 50%,
-                rgba(0, 170, 255, 0.1) 100%
-            );
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        #game-container:hover {
-            transform: scale(1);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
-            border-color: rgba(0, 170, 255, 0.3);
-        }
-        
-        /* Game frame styles */
-        #game-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: #000;
-            position: relative;
-            z-index: 3;
-        }
-        
-        /* Control bar styles */
-        #control-bar {
-            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 30px;
-            background: linear-gradient(to right, rgba(10, 10, 20, 0.9), rgba(20, 30, 40, 0.9));
-            backdrop-filter: blur(10px);
-            z-index: 50;
-            box-sizing: border-box;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            transform: translateY(-100%);
-            opacity: 0;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1), opacity 0.3s ease;
+            padding: 20px 40px;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent header */
+            z-index: 1; /* Keep header on top */
         }
-        
-        #control-bar.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        .game-info {
+
+        header .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
-        
-        .game-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--primary);
-            border-radius: 8px;
+
+        header .logo img {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        header .logo img:hover {
+            animation: bounce 0.5s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        header .logo h1 {
+            color: #f1f1f1;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style-type: none;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
+            gap: 20px;
         }
-        
-        .game-title {
-            color: var(--text);
-            font-size: 20px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin: 0;
+
+        nav ul li {
+            display: inline;
         }
-        
-        .game-subtitle {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 12px;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-            margin: 2px 0 0 0;
+
+        nav ul li a {
+            text-decoration: none;
+            color: #f1f1f1;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
         }
-        
-        .control-buttons {
-            display: flex;
-            gap: 12px;
+
+        nav ul li a:hover {
+            color: #00aaff;
         }
-        
-        .control-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
+
+        /* Hero Section */
+        .hero {
             position: relative;
-            overflow: hidden;
-            letter-spacing: 0.5px;
+            z-index: 1;
+            text-align: center;
+            padding: 150px 70px; /* Adjust padding as needed */
+            background-color: rgba(18, 18, 18, 0.9); /* Dark background */
+            height: 100vh; /* Make the hero section fill the viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-        
-        .control-btn::before {
-            content: '';
+
+        .hero h2 {
+            font-size: 4.5em;
+            margin-bottom: 100px;
+        }
+
+        .hero p {   
+            font-size: 1.2em;
+            margin-bottom: 25px;
+        }
+
+        .cta-button {
+            padding: 10px 30px;
+            background-color: #00aaff;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            border-radius: 10px;
+            position: relative;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .cta-button:hover {
+            background-color: #0077cc;
+            transform: scale(1.1);
+        }
+
+      
+        .cta-button:active {
+            transform: scale(0.9);
+        }
+
+        /* Video Background for Hero Section */
+        .hero-video-background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(0, 170, 255, 0.3), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .control-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-        }
-        
-        .control-btn:hover::before {
-            transform: translateX(0);
-        }
-        
-        .control-btn i {
-            transition: transform 0.3s ease;
-        }
-        
-        .control-btn:hover i {
-            transform: scale(1.1);
-        }
-        
-        #fullscreen-btn {
-            background: var(--primary);
-        }
-        
-        #fullscreen-btn:hover {
-            background: var(--primary-dark);
-        }
-        
-        #exit-btn {
-            background: var(--accent);
-        }
-        
-        #exit-btn:hover {
-            background: #e04a6a;
-        }
-        
-        /* Fullscreen styles */
-        :fullscreen #game-container {
-            width: 100% !important;
-            height: 100% !important;
-            border-radius: 0 !important;
-            transform: none !important;
-            box-shadow: none !important;
-            border: none !important;
-        }
-        
-        :fullscreen #game-container::before,
-        :fullscreen #game-container::after {
-            display: none;
-        }
-        
-        :fullscreen #control-bar {
-            padding: 15px 40px;
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 10, 20, 0.9));
-        }
-        
-        /* Floating particles background */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            height: 100%; /* Cover the entire height of the hero section */
             z-index: -1;
             overflow: hidden;
         }
-        
-        .particle {
+
+        .hero-video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
             position: absolute;
-            background: rgba(0, 170, 255, 0.3);
-            border-radius: 50%;
-            animation: float linear infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
         }
-        
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+
+        /* Unity Services Section */
+        .unity-services {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 60px 20px;
+            margin-top: 120px; /* Add margin-top to push it below the hero section */
+            background-color: rgba(18, 18, 18, 0.9); /* Dark background */
+        }
+
+        .unity-services .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(34, 40, 49, 0.9); /* Matching the game card background */
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .unity-services .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .unity-services .image-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .unity-services .image-container img,
+        .unity-services .image-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+        }
+
+        .unity-services .image-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .unity-services .image-container:hover img {
+            opacity: 0;
+        }
+
+        .unity-services .image-container:hover video {
+            opacity: 1;
+        }
+
+        .unity-services .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .unity-services .stat {
+            text-align: center;
+            color: #f1f1f1;
+        }
+
+        .unity-services .stat h3 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #00aaff; /* Matching the accent color */
+        }
+
+        .unity-services .stat p {
+            color: #ccc;
+            margin: 5px 0 0;
+        }
+
+        .unity-services h2 {
+            color: #f1f1f1;
+            margin-bottom: 20px;
+        }
+
+        .unity-services p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .unity-services .cta {
+            color: #00aaff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .unity-services .cta:hover {
+            color: #0077cc;
+            text-decoration: underline;
         }
     </style>
 </head>
+
 <body>
-    <!-- Particles Background -->
-    <div class="particles" id="particles"></div>
-    
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="spinner"></div>
-        <div class="loading-text">Loading Game</div>
-    </div>
-    
-    <!-- Game Container -->
-    <div id="game-container">
-        <iframe id="game-frame" src="../public/games/HexGL/index.html" allow="fullscreen"></iframe>
-    </div>
-    
-    <!-- Control Bar -->
-    <div id="control-bar">
-        <div class="game-info">
-            <div class="game-icon">
-                <i class="fas fa-gamepad"></i>
-            </div>
-            <div>
-                <h1 class="game-title">HyperGlide</h1>
-                <p class="game-subtitle">Futuristic Racing Game</p>
-            </div>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="/images/ChatGPT Image Apr 18, 2025, 01_39_25 PM.png" alt="Game Space Logo">
+            <h1>Game Space</h1>
         </div>
-        <div class="control-buttons">
-            <button id="fullscreen-btn" class="control-btn">
-                <i class="fas fa-expand"></i> Fullscreen
-            </button>
-            <button id="exit-btn" class="control-btn">
-                <i class="fas fa-times"></i> Exit
-            </button>
+        <nav>
+            <ul>
+                <li><a href="/about">About</a></li>
+                <li><a href="/registration">Sign Up</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section with Video Background -->
+    <section class="hero">
+        <!-- Video Background for Hero Section -->
+        <div class="hero-video-background">
+            <video autoplay muted loop>
+                <source src="../videos/mainpagebackgroundfinal.mov" type="video/mp4">
+            </video>
         </div>
-    </div>
+
+        <div class="hero-content">
+            <h2>Game Space</h2>
+            <p>Welcome to the world of exciting games!</p>
+        </div>
+        <a href="/login" class="cta-button">Start Playing</a>
+    </section>
+
+    <!-- Unity Services Section -->
+    <section id="unity-services" class="unity-services">
+        <h2 style="align-self: center;font-size: 2.5em;">Games</h2>
+        <div class="container">
+            <div class="content">
+                <div class="image-container">
+                        
+                    <img src="/images/2048.jpg" alt="Games">
+                    <video autoplay loop muted>
+                        <source src="\videos\2048.mov" type="video/mp4">
+                    </video>
+                </div>
+                <div class="image-container">
+                    <img src="\images\tic-tac-yoe.png" alt="Industry">
+                    <video autoplay loop muted>
+                        <source src="\videos\tictacto.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="image-container">
+                    <img src="\images\icon_256.png" alt="Fusion Rider">
+                    <video autoplay loop muted>
+                        <source src="\videos\Timeline 1.mov" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <h3 data-target="20">0</h3>
+                    <p style="font-size: 1.3em;">Users</p>
+                </div>
+                <div class="stat">
+                    <h3 data-target="3.6">0</h3>
+                    <p style="padding-left: 30%;">Downloads per month of Made with Unity applications</p>
+                </div>
+                <div class="stat">
+                    <h3 data-target="82">0</h3>
+                    <p>of the top 100 games use Unity to grow their games</p>
+                </div>
+            </div>
+
+           
+        </div>
+    </section>
 
     <script>
-        // DOM Elements
-        const gameContainer = document.getElementById('game-container');
-        const gameFrame = document.getElementById('game-frame');
-        const loadingScreen = document.getElementById('loading-screen');
-        const controlBar = document.getElementById('control-bar');
-        const fullscreenBtn = document.getElementById('fullscreen-btn');
-        const exitBtn = document.getElementById('exit-btn');
-        const particlesContainer = document.getElementById('particles');
-        
-        // Create floating particles
-        function createParticles() {
-            const particleCount = window.innerWidth < 768 ? 30 : 50;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                const size = Math.random() * 5 + 2;
-                const posX = Math.random() * window.innerWidth;
-                const duration = Math.random() * 20 + 10;
-                const delay = Math.random() * 5;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${posX}px`;
-                particle.style.bottom = `-10px`;
-                particle.style.animationDuration = `${duration}s`;
-                particle.style.animationDelay = `${delay}s`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-        
-        // When game loads
-        gameFrame.onload = function() {
-            // Fade out loading screen
-            loadingScreen.style.opacity = '0';
-            
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-                gameContainer.style.display = 'block';
-                controlBar.classList.add('visible');
-            }, 500);
-            
-            // Create particles after load
-            createParticles();
+        // Number Animation on Scroll
+        const stats = document.querySelectorAll('.stat h3');
+
+        const animateNumbers = () => {
+            stats.forEach(stat => {
+                const target = +stat.getAttribute('data-target');
+                const increment = target / 100;
+                let count = 0;
+
+                const updateNumber = () => {
+                    if (count < target) {
+                        count += increment;
+                        stat.textContent = Math.ceil(count);
+                        requestAnimationFrame(updateNumber);
+                    } else {
+                        stat.textContent = target;
+                    }
+                };
+
+                updateNumber();
+            });
         };
-        
-        // If game fails to load
-        gameFrame.onerror = function() {
-            loadingScreen.innerHTML = `
-                <div style="text-align: center; padding: 30px; max-width: 400px;">
-                    <div style="font-size: 60px; margin-bottom: 20px; color: #ff5e7d;">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <h2 style="color: #ff5e7d; margin-bottom: 15px;">Game Failed to Load</h2>
-                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 25px;">
-                        There was an issue loading the game. Please check your connection and try again.
-                    </p>
-                    <button onclick="window.location.href='/'" 
-                            style="background: var(--primary); color: white; border: none; 
-                                   padding: 12px 25px; border-radius: 8px; cursor: pointer;
-                                   font-size: 14px; font-weight: 500; transition: all 0.3s ease;">
-                        <i class="fas fa-home"></i> Return to Home
-                    </button>
-                </div>
-            `;
-        };
-        
-        // Fullscreen functionality
-        fullscreenBtn.addEventListener('click', () => {
-            if (!document.fullscreenElement) {
-                gameContainer.requestFullscreen().catch(err => {
-                    console.log("Fullscreen error:", err);
-                });
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateNumbers();
+                    observer.disconnect();
                 }
-            }
-        });
-        
-        // Exit game functionality
-        exitBtn.addEventListener('click', () => {
-            const confirmExit = confirm('Are you sure you want to exit HexGL?');
-            if (confirmExit) {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-                window.location.href = '/';
-            }
-        });
-        
-        // Update fullscreen button when fullscreen changes
-        document.addEventListener('fullscreenchange', () => {
-            if (document.fullscreenElement) {
-                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i> Exit Fullscreen';
-            } else {
-                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> Fullscreen';
-            }
-        });
-        
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            particlesContainer.innerHTML = '';
-            createParticles();
-        });
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(document.querySelector('.stats'));
     </script>
+    <!-- Footer Section -->
+    <footer style="
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #f1f1f1;
+        padding: 40px 20px;
+        text-align: center;
+        margin-top: 50px;
+    ">
+        <div style="
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        ">
+            <div style="
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+                flex-wrap: wrap;
+            ">
+                <div style="flex: 1; min-width: 200px;">
+                    <h3 style="color: #00aaff; margin-bottom: 15px;">Game Space</h3>
+                    <p style="color: #ccc;">Your ultimate gaming destination with exciting games and challenges.</p>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <h3 style="color: #00aaff; margin-bottom: 15px;">Quick Links</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 8px;"><a href="/about" style="color: #ccc; text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#00aaff'" onmouseout="this.style.color='#ccc'">About Us</a></li>
+                        <li style="margin-bottom: 8px;"><a href="/login" style="color: #ccc; text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#00aaff'" onmouseout="this.style.color='#ccc'">Login</a></li>
+                        <li style="margin-bottom: 8px;"><a href="/contact" style="color: #ccc; text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#00aaff'" onmouseout="this.style.color='#ccc'">Contact</a></li>
+                        <li style="margin-bottom: 8px;"><a href="/privacy" style="color: #ccc; text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#00aaff'" onmouseout="this.style.color='#ccc'">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <h3 style="color: #00aaff; margin-bottom: 15px;">Contact Us</h3>
+                    <div style="text-align: left; color: #ccc; line-height: 1.6;">
+                        <p style="margin-bottom: 8px;"><i class="fas fa-envelope" style="margin-right: 10px; color: #00aaff;"></i> rayhaansam21@.com</p>
+                        <p style="margin-bottom: 8px;"><i class="fas fa-phone" style="margin-right: 10px; color: #00aaff;"></i> +91 7396327526</p>
+                        <p style="margin-bottom: 8px;"><i class="fas fa-map-marker-alt" style="margin-right: 10px; color: #00aaff;"></i> Central bank colony, Lb Nagar</p>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #333; padding-top: 20px;">
+                <p style="color: #777;">&copy; 2025 Game Space. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
 </body>
+
 </html>

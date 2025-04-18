@@ -105,6 +105,19 @@ app.get("/game3", checklogin, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', "game3.html"))
 });
 
+app.get("/game4", checklogin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', "game4.html"))
+});
+
+app.get("/game5", checklogin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', "game5.html"))
+});
+
+app.get("/game6", checklogin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', "game6.html"))
+});
+
+
 
 app.use("/backend", authRoutes);
 
